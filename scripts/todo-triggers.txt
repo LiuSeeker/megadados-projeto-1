@@ -4,7 +4,3 @@ ON UPDATE
 
 ON DELETE
 qnd apagar passaro, apagar preferencia e mencao de passaro 
-
-ON CREATE
-qnd criar post, criar mencoes de usuarios e passaros se tiver
-

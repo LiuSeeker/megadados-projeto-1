@@ -1,0 +1,10 @@
+ON UPDATE
+[ok] qnd "apagar" post, apagar mencoes de usuarios e passaros e visualizacao
+[ok] qnd "apagar" usuario, apagar posts e preferencias
+
+ON DELETE
+qnd apagar passaro, apagar preferencia e mencao de passaro 
+
+ON CREATE
+qnd criar post, criar mencoes de usuarios e passaros se tiver
+

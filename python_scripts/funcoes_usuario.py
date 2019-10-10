@@ -97,6 +97,6 @@ def update_usuario_cidade(conn, id_usuario, cidade):
         except pymysql.err.IntegrityError as e:
             raise ValueError(f'Erro ao dar update em usuário')
 
-def update_usuario_ativo(conn, id_usuario):
+def remove_usuario(conn, id_usuario):
     with conn.cursor as cursor:
         cursor.execute('DELETE FROM usuario WHERE id_usuario=%s',(id_usuario))

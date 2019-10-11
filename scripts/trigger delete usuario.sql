@@ -10,8 +10,8 @@ BEGIN
 	IF NEW.ativo <=> OLD.ativo THEN
 		DELETE FROM preferencia
 		WHERE preferencia.id_usuario = NEW.id_usuario;
-		DELETE FROM post
-		WHERE post.id_post = NEW.id_usuario;
+		UPDATE post SET post.ativo = 0
+		WHERE post.id_usuario = NEW.id_usuario;
     END IF;
 END;//
 DELIMITER ;

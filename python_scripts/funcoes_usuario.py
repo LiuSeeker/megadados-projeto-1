@@ -3,8 +3,8 @@ import pymysql
 def adiciona_usuario(conn, nome, sobrenome, username, email, cidade):
     with conn.cursor() as cursor:
         try:
-            cursor.execute("INSERT INTO usuario (nome, sobrenome, username, email, cidade, ativo) VALUES (%s, %s, %s, %s, %s, %s, %s)", \
-                (nome, sobrenome, username, email, cidade, 1))
+            cursor.execute("INSERT INTO usuario (nome, sobrenome, username, email, cidade, ativo) VALUES (%s, %s, %s, %s, %s, %s)", \
+                (nome, sobrenome, username, email, cidade, "1"))
         except pymysql.err.IntegrityError as e:
             raise ValueError(f'Erro ao inserir usuário')
 

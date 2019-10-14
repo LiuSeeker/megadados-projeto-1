@@ -33,7 +33,7 @@ def lista_mencao_usuario_por_id_post(conn, id_post):
 
 
 def remove_mencao_usuario(conn, id_post, id_usuario):
-    with conn.cursor as cursor:
+    with conn.cursor() as cursor:
         try:
             cursor.execute(
                 'DELETE FROM mencao_usuario WHERE id_post=%s AND id_usuario=%s', (id_post, id_usuario))

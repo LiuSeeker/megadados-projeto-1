@@ -16,7 +16,7 @@ def acha_post_info_por_id(conn, id_post):
             "SELECT id_usuario, titulo, texto, url_imagem FROM post WHERE id_post=%s", (id_post))
         res = cursor.fetchall()
         if res:
-            return tuple(x[0] for x in res)
+            return res[0]
         else:
             return None
 

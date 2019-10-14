@@ -4,7 +4,7 @@ import pymysql
 def adiciona_mencao_passaro(conn, id_post, especie):
     with conn.cursor() as cursor:
         try:
-            cursor.execute("INSERT INTO mencao_passaro (id_post, especie) VALUES (%s, %s)", \
+            cursor.execute("INSERT INTO mencao_passaro (id_post, especie) VALUES (%s, %s)",
                            (id_post, especie))
         except pymysql.err.IntegrityError as e:
             raise ValueError(f'Erro ao inserir mencao passaro')
@@ -37,5 +37,14 @@ def remove_mencao_passaro(conn, id_post, especie):
         try:
             cursor.execute(
                 'DELETE FROM mencao_passaro WHERE id_post=%s AND especie=%s', (id_post, especie))
+        except pymysql.err.IntegrityError as e:
+            raise ValueError(f'Erro ao dar delete em mencao passaro')
+
+
+def remove_mencao_passaro_por_id_post(conn, id_post):
+    with conn.cursor() as cursor:
+        try:
+            cursor.execute(
+                'DELETE FROM mencao_passaro WHERE id_post=%s', (id_post))
         except pymysql.err.IntegrityError as e:
             raise ValueError(f'Erro ao dar delete em mencao passaro')

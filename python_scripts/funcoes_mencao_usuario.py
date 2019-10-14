@@ -39,3 +39,12 @@ def remove_mencao_usuario(conn, id_post, id_usuario):
                 'DELETE FROM mencao_usuario WHERE id_post=%s AND id_usuario=%s', (id_post, id_usuario))
         except pymysql.err.IntegrityError as e:
             raise ValueError(f'Erro ao dar delete em mencao usuario')
+
+
+def remove_mencao_usuario_por_id_post(conn, id_post):
+    with conn.cursor() as cursor:
+        try:
+            cursor.execute(
+                'DELETE FROM mencao_usuario WHERE id_post=%s', (id_post))
+        except pymysql.err.IntegrityError as e:
+            raise ValueError(f'Erro ao dar delete em mencao usuario')

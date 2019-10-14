@@ -78,7 +78,7 @@ def lista_usuario_username_por_nome_e_sobrenome(conn, nome, sobrenome):
 def lista_usuario_username_por_palavra(conn, palavra):
     with conn.cursor() as cursor:
         cursor.execute(
-            "SELECT username FROM usuario WHERE username LIKE %{$%s}", (palavra))
+            "SELECT username FROM usuario WHERE username LIKE CONCAT('%%', %s, '%%')", (palavra))
         res = cursor.fetchall()
         if res:
             return tuple(x[0] for x in res)

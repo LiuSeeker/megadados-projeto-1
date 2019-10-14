@@ -126,16 +126,16 @@ class TestUsuario(unittest.TestCase):
             conn, nome, sobrenome)
         self.assertCountEqual(username_novo, username_esperado)
 
-    # def test_lista_usuario_username_por_palavra(self):
-    #     conn = self.__class__.connection
+    def test_lista_usuario_username_por_palavra(self):
+        conn = self.__class__.connection
 
-    #     palavra = 'Vaz'
-    #     username_esperado = ['BearVaz']
+        palavra = 'Vaz'
+        username_esperado = ['BearVaz']
 
-    #     # lista username do usuario com certo nome e sobrenome e compara com o esperado
-    #     username_novo = lista_usuario_username_por_palavra(
-    #         conn, palavra)
-    #     self.assertCountEqual(username_novo, username_esperado)
+        # lista username do usuario com certo nome e sobrenome e compara com o esperado
+        username_novo = lista_usuario_username_por_palavra(
+            conn, palavra)
+        self.assertCountEqual(username_novo, username_esperado)
 
     def test_update_usuario_nome(self):
         conn = self.__class__.connection

@@ -9,7 +9,7 @@ import unittest
 import pymysql
 
 from funcoes_mencao_passaro import *
-
+from funcoes_post import adiciona_post, acha_post_info_por_id
 
 class TestMencaoPassaro(unittest.TestCase):
     @classmethod
@@ -36,39 +36,43 @@ class TestMencaoPassaro(unittest.TestCase):
         with conn.cursor() as cursor:
             cursor.execute('ROLLBACK')
 
-    # def test_adiciona_mencao_passaro(self):
-    #     conn = self.__class__.connection
+    def test_adiciona_mencao_passaro(self):
+        conn = self.__class__.connection
+        adiciona_post(conn, 1, "titulo", "texto", "url_imagem")
+        
+        with conn.cursor() as cursor:
+            cursor.execute('SELECT * FROM post')
+            id_post = cursor.fetchone()[0]
 
-    #     especie = 'tucano'
-    #     id_post = 1
-    #     res_esperado = [1]
+        especie = "tucano"
+        res_esperado = [id_post]
 
-    #     adiciona_mencao_passaro(conn, id_post, especie)
+        adiciona_mencao_passaro(conn, id_post, especie)
 
-    #     try:
-    #         adiciona_mencao_passaro(conn, id_post, especie)
-    #         self.fail(
-    #             'Nao deveria ter adicionado a mesma preferencia duas vezes.')
-    #     except ValueError as e:
-    #         pass
+        try:
+            adiciona_mencao_passaro(conn, id_post, especie)
+            self.fail(
+                'Nao deveria ter adicionado a mesma mencao duas vezes.')
+        except ValueError as e:
+            pass
 
-    #     res = lista_mencao_passaro_por_especie(conn, especie)
-    #     self.assertCountEqual(res, res_esperado)
+        res = lista_mencao_passaro_por_especie(conn, especie)
+        self.assertCountEqual(res, res_esperado)
+'''
+    def test_lista_mencao_passaro_por_especie(self):
+        conn = self.__class__.connection
 
-    # def test_lista_preferencia_por_id_usuario(self):
-    #     conn = self.__class__.connection
+        especie1 = 'tucano'
+        especie2 = 'canario'
+        id_usuario = 2
+        res_esperado = ['tucano', 'canario']
 
-    #     especie1 = 'tucano'
-    #     especie2 = 'canario'
-    #     id_usuario = 2
-    #     res_esperado = ['tucano', 'canario']
+        adiciona_preferencia(conn, id_usuario, especie1)
+        adiciona_preferencia(conn, id_usuario, especie2)
 
-    #     adiciona_preferencia(conn, id_usuario, especie1)
-    #     adiciona_preferencia(conn, id_usuario, especie2)
-
-    #     res = lista_preferencia_por_id_usuario(conn, id_usuario)
-    #     self.assertCountEqual(res, res_esperado)
-
+        res = lista_preferencia_por_id_usuario(conn, id_usuario)
+        self.assertCountEqual(res, res_esperado)
+'''
     # def test_lista_preferencia_por_especie(self):
     #     conn = self.__class__.connection
 

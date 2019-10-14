@@ -30,8 +30,8 @@ def adiciona_post_e_mencoes(conn, id_usuario, titulo, texto, url_imagem):
 def remove_post_e_mencoes(conn, id_post):
 
     update_post_ativo(conn, id_post, 0)
-    remove_mencao_passaro_por_id_post(conn, id_post)
-    remove_mencao_usuario_por_id_post(conn, id_post)
+    update_ativo_mencao_passaro(conn, id_post, 0)
+    update_ativo_mencao_usuario(conn, id_post, 0)
 
 
 def update_post_texto_e_mencoes(conn, id_post, texto):
@@ -42,6 +42,8 @@ def update_post_texto_e_mencoes(conn, id_post, texto):
     mencoes_usuario_usernames = parser1(texto, '@')
     mencoes_passaro_especies = parser1(texto, '#')
     mencoes_usuario_ids = []
+
+    update_post_texto(conn, id_post, texto)
 
     for i in mencoes_usuario_usernames:
         mencoes_usuario_ids.append(acha_usuario_id_por_username(conn, i))

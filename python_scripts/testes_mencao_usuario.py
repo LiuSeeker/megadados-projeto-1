@@ -8,10 +8,10 @@ import subprocess
 import unittest
 import pymysql
 
-from funcoes_usuario import *
+from funcoes_mencao_usuario import *
 
 
-class TestUsuario(unittest.TestCase):
+class TestMencaoUsuario(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         global config
@@ -36,32 +36,25 @@ class TestUsuario(unittest.TestCase):
         with conn.cursor() as cursor:
             cursor.execute('ROLLBACK')
 
-    def test_adiciona_usuario(self):
-        conn = self.__class__.connection
-    
-        nome = 'liu'
-        sobrenome = 'seeker'
-        username = "LiuSeeker"
-        email = "liuliu@liu.liu"
-        cidade = "sp"
+    # def test_adiciona_mencao_usuario(self):
+    #     conn = self.__class__.connection
 
-        # Adiciona um perigo não existente.
-        adiciona_usuario(conn, nome, sobrenome, username, email, cidade)
+    #     id_post = 1
+    #     id_usuario = 2
+    #     res_esperado = [1]
 
-        # Tenta adicionar o mesmo perigo duas vezes.
-        try:
-            adiciona_usuario(conn, nome, sobrenome, username, email, cidade)
-            self.fail('Nao deveria ter adicionado o mesmo username duas vezes.')
-        except ValueError as e:
-            pass
+    #     adiciona_mencao_usuario(conn, id_post, id_usuario)
 
-        # Checa se o perigo existe.
-        id = acha_usuario_id_por_username(conn, username)
-        self.assertIsNotNone(id)
+    #     try:
+    #         adiciona_mencao_usuario(conn, id_post, id_usuario)
+    #         self.fail(
+    #             'Nao deveria ter adicionado a mesma preferencia duas vezes.')
+    #     except ValueError as e:
+    #         pass
 
-        # Tenta achar um perigo inexistente.
-        id = acha_usuario_id_por_username(conn, 'dasdasd')
-        self.assertIsNone(id)
+    #     res = lista_mencao_usuario_por_id_usuario(conn, id_usuario)
+    #     self.assertCountEqual(res, res_esperado)
+
 
 if __name__ == '__main__':
     global config

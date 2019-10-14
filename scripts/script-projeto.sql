@@ -35,7 +35,7 @@ id_post INT NOT NULL,
 id_usuario INT NOT NULL,
 aparelho VARCHAR(32) NOT NULL,
 ip VARCHAR(32) NOT NULL,
-instante TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+instante TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (id_post, id_usuario),
 FOREIGN KEY (id_post) REFERENCES Post(id_post),
 FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)

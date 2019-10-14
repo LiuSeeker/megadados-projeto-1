@@ -9,8 +9,8 @@ FOR EACH ROW
 BEGIN
 	DELETE FROM preferencia
 	WHERE preferencia.especie = OLD.especie;
-	DELETE FROM post
-	WHERE post.especie = OLD.especie;
+	DELETE FROM Mencao_Passaro
+	WHERE Mencao_Passaro.especie = OLD.especie;
     
 END;//
 DELIMITER ;

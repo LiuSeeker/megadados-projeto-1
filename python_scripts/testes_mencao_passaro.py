@@ -58,54 +58,65 @@ class TestMencaoPassaro(unittest.TestCase):
 
         res = lista_mencao_passaro_por_especie(conn, especie)
         self.assertCountEqual(res, res_esperado)
-'''
+
     def test_lista_mencao_passaro_por_especie(self):
         conn = self.__class__.connection
 
-        especie1 = 'tucano'
-        especie2 = 'canario'
-        id_usuario = 2
-        res_esperado = ['tucano', 'canario']
+        adiciona_post(conn, 1, "titulo", "texto", "url_imagem")
+        with conn.cursor() as cursor:
+            cursor.execute('SELECT * FROM post')
+            id_post = cursor.fetchone()[0]
 
-        adiciona_preferencia(conn, id_usuario, especie1)
-        adiciona_preferencia(conn, id_usuario, especie2)
 
-        res = lista_preferencia_por_id_usuario(conn, id_usuario)
+        especie = "tucano"
+        adiciona_mencao_passaro(conn, id_post, especie)
+
+        res1 = lista_mencao_passaro_por_especie(conn, "tucano")
+        res1_esperado = [id_post]
+
+        res2 = lista_mencao_passaro_por_especie(conn, "canario")
+
+        self.assertCountEqual(res1, res1_esperado)
+        self.assertIsNone(res2)
+
+    def test_lista_mencao_passaro_por_id_post(self):
+        conn = self.__class__.connection
+
+        adiciona_post(conn, 1, "titulo", "texto", "url_imagem")
+        with conn.cursor() as cursor:
+            cursor.execute('SELECT * FROM post')
+            id_post = cursor.fetchone()[0]
+
+        adiciona_mencao_passaro(conn, id_post, "tucano")
+
+        res = lista_mencao_passaro_por_id_post(conn, id_post)
+        res_esperado = ["tucano"]
+
         self.assertCountEqual(res, res_esperado)
-'''
-    # def test_lista_preferencia_por_especie(self):
-    #     conn = self.__class__.connection
 
-    #     especie = 'tucano'
-    #     id_usuario1 = 1
-    #     id_usuario2 = 2
-    #     res_esperado = [1, 2]
+        adiciona_mencao_passaro(conn, id_post, "canario")
 
-    #     adiciona_preferencia(conn, id_usuario1, especie)
-    #     adiciona_preferencia(conn, id_usuario2, especie)
+        res2 = lista_mencao_passaro_por_id_post(conn, id_post)
+        res2_esperado = ["tucano", "canario"]
 
-    #     res = lista_preferencia_por_especie(conn, especie)
-    #     self.assertCountEqual(res, res_esperado)
+        self.assertCountEqual(res2, res2_esperado)
 
-    # def test_remove_preferencia(self):
-    #     conn = self.__class__.connection
+    def test_remove_mencao_passaro(self):
+        conn = self.__class__.connection
 
-    #     especie1 = 'tucano'
-    #     especie2 = 'canario'
-    #     id_usuario = 1
+        adiciona_post(conn, 1, "titulo", "texto", "url_imagem")
+        with conn.cursor() as cursor:
+            cursor.execute('SELECT * FROM post')
+            id_post = cursor.fetchone()[0]
 
-    #     res_esperado = ['tucano', 'canario']
+        adiciona_mencao_passaro(conn, id_post, "tucano")
 
-    #     adiciona_preferencia(conn, id_usuario, especie1)
-    #     adiciona_preferencia(conn, id_usuario, especie2)
-    #     res = lista_preferencia_por_id_usuario(conn, id_usuario)
-    #     self.assertCountEqual(res, res_esperado)
+        remove_mencao_passaro(conn, id_post, "tucano")
 
-    #     remove_preferencia(conn, id_usuario, especie2)
+        res = lista_mencao_passaro_por_id_post(conn, id_post)
 
-    #     res_esperado = ['tucano']
-    #     res = lista_preferencia_por_id_usuario(conn, id_usuario)
-    #     self.assertCountEqual(res, res_esperado)
+        self.assertIsNone(res)
+
 
 
 if __name__ == '__main__':

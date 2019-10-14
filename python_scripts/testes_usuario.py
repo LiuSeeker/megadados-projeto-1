@@ -56,12 +56,12 @@ class TestUsuario(unittest.TestCase):
             pass
 
         # Checa se o perigo existe.
-        id = acha_usuario_id_por_username(conn, username)
-        self.assertIsNotNone(id)
+        id_usuario = acha_usuario_id_por_username(conn, username)
+        self.assertIsNotNone(id_usuario)
 
         # Tenta achar um perigo inexistente.
-        id = acha_usuario_id_por_username(conn, 'dasdasd')
-        self.assertIsNone(id)
+        id_usuario = acha_usuario_id_por_username(conn, 'dasdasd')
+        self.assertIsNone(id_usuario)
 
     def test_acha_usuario_info_por_id(self):
         conn = self.__class__.connection

@@ -45,7 +45,7 @@ def lista_post_id_por_id_usuario(conn, id_usuario):
 def lista_post_id_por_palavra(conn, palavra):
     with conn.cursor() as cursor:
         cursor.execute(
-            "SELECT id_post FROM post WHERE texto LIKE %{$%s}", (palavra))
+            "SELECT id_post FROM post WHERE texto LIKE CONCAT('%%', %s, '%%')", (palavra))
         res = cursor.fetchall()
         if res:
             return tuple(x[0] for x in res)

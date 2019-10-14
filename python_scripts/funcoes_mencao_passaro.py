@@ -48,3 +48,12 @@ def remove_mencao_passaro_por_id_post(conn, id_post):
                 'DELETE FROM mencao_passaro WHERE id_post=%s', (id_post))
         except pymysql.err.IntegrityError as e:
             raise ValueError(f'Erro ao dar delete em mencao passaro')
+
+
+def update_ativo_mencao_passaro(conn, id_post, ativo):
+    with conn.cursor() as cursor:
+        try:
+            cursor.execute(
+                'UPDATE mencao_passaro SET ativo=%s WHERE id_post=%s', (ativo, id_post))
+        except pymysql.err.IntegrityError as e:
+            raise ValueError(f'Erro ao dar delete em mencao_passaro')

@@ -45,6 +45,7 @@ DROP TABLE IF EXISTS Mencao_Usuario;
 CREATE TABLE Mencao_Usuario(
 id_post INT NOT NULL,
 id_usuario INT NOT NULL,
+ativo BOOLEAN NOT NULL DEFAULT 1,
 PRIMARY KEY (id_post, id_usuario),
 FOREIGN KEY (id_post) REFERENCES Post(id_post),
 FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
@@ -54,6 +55,7 @@ DROP TABLE IF EXISTS Mencao_Passaro;
 CREATE TABLE Mencao_Passaro(
 id_post INT NOT NULL,
 especie VARCHAR(32) NOT NULL,
+ativo BOOLEAN NOT NULL DEFAULT 1,
 PRIMARY KEY (id_post, especie),
 FOREIGN KEY (id_post) REFERENCES Post(id_post),
 FOREIGN KEY (especie) REFERENCES Passaro(especie)

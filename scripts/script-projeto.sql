@@ -69,3 +69,14 @@ PRIMARY KEY (id_usuario, especie),
 FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
 FOREIGN KEY (especie) REFERENCES Passaro(especie)
 );
+
+DROP TABLE IF EXISTS Joinha;
+CREATE TABLE Joinha(
+id_post INT NOT NULL,
+id_usuario INT NOT NULL,
+pro_joinha BOOLEAN NOT NULL DEFAULT 0,
+anti_joinha BOOLEAN NOT NULL DEFAULT 0,
+FOREIGN KEY (id_post) REFERENCES Post(id_post),
+FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
+PRIMARY KEY (id_post, id_usuario)
+);

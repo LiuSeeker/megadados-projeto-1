@@ -63,3 +63,17 @@ def consulta_tabela_cruzada_de_quantidade_de_aparelhos_por_tipo_e_por_browser(co
             return res
         else:
             return None
+
+
+def consulta_url_com_hashtags(conn):
+    with conn.cursor() as cursor:
+        cursor.execute('''
+                SELECT especie, url_imagem
+                FROM post
+                INNER JOIN mencao_passaro USING (id_post)
+                           ''')
+        res = cursor.fetchall()
+        if res:
+            return res
+        else:
+            return None

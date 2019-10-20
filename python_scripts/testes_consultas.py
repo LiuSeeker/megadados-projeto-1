@@ -14,6 +14,7 @@ from funcoes_post import *
 from funcoes_usuario import *
 from funcoes_visualizacao import *
 from funcoes_mencao_usuario import *
+from funcoes_mencao_passaro import *
 
 
 class TestConjuntas(unittest.TestCase):
@@ -147,6 +148,44 @@ class TestConjuntas(unittest.TestCase):
 
         res_esperado = [(5, 'iphone11', 'chrome'),
                         (3, 's9', 'chrome'), (2, 'iphone11', 'opera')]
+
+        self.assertCountEqual(res, res_esperado)
+
+    def test_consulta_url_com_hashtags(self):
+        conn = self.__class__.connection
+
+        nome = 'Nome'
+        sobrenome = 'Sobrenome'
+        username = 'usuario_teste'
+        email = 'email'
+        cidade = 'SP'
+
+        adiciona_usuario(conn, nome, sobrenome, username, email, cidade)
+
+        id_usuario = acha_usuario_id_por_username(conn, username)
+
+        for i in range(3):
+            adiciona_post(conn, id_usuario, 'titulo', 'texto', 'url_tucano')
+
+            with conn.cursor() as cursor:
+                cursor.execute('SELECT LAST_INSERT_ID()')
+                id_post = cursor.fetchone()[0]
+
+            adiciona_mencao_passaro(conn, id_post, 'tucano')
+
+        for i in range(2):
+            adiciona_post(conn, id_usuario, 'titulo', 'texto', 'url_canario')
+
+            with conn.cursor() as cursor:
+                cursor.execute('SELECT LAST_INSERT_ID()')
+                id_post = cursor.fetchone()[0]
+
+            adiciona_mencao_passaro(conn, id_post, 'canario')
+
+        res = consulta_url_com_hashtags(conn)
+
+        res_esperado = [('tucano', 'url_tucano'), ('tucano', 'url_tucano'), (
+            'tucano', 'url_tucano'), ('canario', 'url_canario'), ('canario', 'url_canario')]
 
         self.assertCountEqual(res, res_esperado)
 

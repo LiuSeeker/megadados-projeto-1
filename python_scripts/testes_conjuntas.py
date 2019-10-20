@@ -102,7 +102,6 @@ class TestConjuntas(unittest.TestCase):
 
         res_esperado = 'ola @JJ #canario'
         res = acha_post_info_por_id(conn, id_post)[2]
-        print(res)
         self.assertEqual(res, res_esperado)
 
 

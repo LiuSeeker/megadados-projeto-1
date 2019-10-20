@@ -61,6 +61,7 @@ class TestConjuntas(unittest.TestCase):
         adiciona_post(conn, id_usuario, '3', 'texto 3', 'url 3')
 
         res = consulta_posts_de_usuario_em_ordem_reversa(conn, id_usuario)
+
         res_esperado = ['3', '2', '1']
         res_lista = [res[0][1], res[1][1], res[2][1]]
         self.assertListEqual(res_lista, res_esperado)
@@ -126,17 +127,23 @@ class TestConjuntas(unittest.TestCase):
             cursor.execute('SELECT LAST_INSERT_ID()')
             id_post = cursor.fetchone()[0]
 
+
+        print("\n{}\n".format(id_post))
+
         for i in range(5):
             adiciona_visualizacao(
-                conn, id_post, id_usuario, 'iphone11', '0000', '1970-01-01 00:00:01', 'chrome')
+                conn, id_post, id_usuario, 'iphone11', '0000', 'chrome')
+            time.sleep(1)
 
         for i in range(3):
             adiciona_visualizacao(
-                conn, id_post, id_usuario, 's9', '0000', '1970-01-01 00:00:01', 'chrome')
+                conn, id_post, id_usuario, 's9', '0000', 'chrome')
+            time.sleep(1)
 
         for i in range(2):
             adiciona_visualizacao(
-                conn, id_post, id_usuario, 'iphone11', '0000', '1970-01-01 00:00:01', 'opera')
+                conn, id_post, id_usuario, 'iphone11', '0000', 'opera')
+            time.sleep(1)
 
         res = consulta_tabela_cruzada_de_quantidade_de_aparelhos_por_tipo_e_por_browser(
             conn)

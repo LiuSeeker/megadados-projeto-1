@@ -1,11 +1,11 @@
 import pymysql
 
 
-def adiciona_visualizacao(conn, id_post, id_usuario, aparelho, ip, instante, browser):
+def adiciona_visualizacao(conn, id_post, id_usuario, aparelho, ip, browser):
     with conn.cursor() as cursor:
         try:
-            cursor.execute("INSERT INTO visualizacao (id_post, id_usuario, aparelho, ip, instante, browser) VALUES (%s, %s, %s, %s, %s, %s)",
-                           (id_post, id_usuario, aparelho, ip, instante, browser))
+            cursor.execute("INSERT INTO visualizacao (id_post, id_usuario, aparelho, ip, browser) VALUES (%s, %s, %s, %s, %s)",
+                           (id_post, id_usuario, aparelho, ip, browser))
         except pymysql.err.IntegrityError as e:
             raise ValueError(f'Erro ao inserir visualizacao')
 

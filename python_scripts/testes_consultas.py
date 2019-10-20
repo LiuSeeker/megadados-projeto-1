@@ -15,6 +15,7 @@ from funcoes_usuario import *
 from funcoes_visualizacao import *
 from funcoes_mencao_usuario import *
 from funcoes_mencao_passaro import *
+from funcoes_conjuntas import *
 
 
 class TestConjuntas(unittest.TestCase):
@@ -67,16 +68,30 @@ class TestConjuntas(unittest.TestCase):
         res_lista = [res[0][1], res[1][1], res[2][1]]
         self.assertListEqual(res_lista, res_esperado)
 
-    # def test_consulta_usuario_mais_popular_de_cada_cidade(self):
-    #     conn = self.__class__.connection
+    def test_consulta_usuario_mais_popular_de_cada_cidade(self):
+        conn = self.__class__.connection
 
-    #     for i in range(5):
-    #         adiciona_usuario(conn, 'nome{}'.format(i), 'sobrenome{}'.format(
-    #             i), 'username{}'.format(i), 'email{}'.format(i), 'cidade1')
+        id_usuario = 1
+        titulo = 'teste'
+        texto = 'ola @guigs10mil #tucano'
+        url_imagem = 'sadadsasd'
 
-    #     for i in range(5):
-    #         adiciona_usuario(conn, 'nome{}'.format(i+5), 'sobrenome{}'.format(
-    #             i+5), 'username{}'.format(i+5), 'email{}'.format(i+5), 'cidade2')
+        adiciona_post_e_mencoes(conn, id_usuario, titulo, texto, url_imagem)
+        adiciona_post_e_mencoes(conn, id_usuario, titulo, texto, url_imagem)
+        adiciona_post_e_mencoes(conn, id_usuario, titulo, texto, url_imagem)
+        adiciona_post_e_mencoes(conn, id_usuario, titulo, texto, url_imagem)
+        
+        id_usuario2 = 1
+        titulo2 = 'teste'
+        texto2 = 'ola @Folguinha #tucano'
+        url_imagem2 = 'sadadsasd'
+
+        adiciona_post_e_mencoes(conn, id_usuario2, titulo2, texto2, url_imagem2)
+
+        res = consulta_usuario_mais_popular_de_cada_cidade(conn, "Sao Paulo")
+
+        print(res)
+
 
     def test_consulta_lista_de_usuarios_que_referenciam_determinado_usuario(self):
         conn = self.__class__.connection

@@ -17,14 +17,16 @@ def consulta_posts_de_usuario_em_ordem_reversa(conn, id_usuario):
             return None
 
 
-def consulta_usuario_mais_popular_de_cada_cidade(conn):
+def consulta_usuario_mais_popular_de_cada_cidade(conn, cidade):
     with conn.cursor() as cursor:
         cursor.execute('''
-                SELECT DISTINCT username, cidade
-                FROM usuario
-                INNER JOIN mencao_usuario USING(id_usuario)
-                GROUP BY id_usuario
-                           ''')
+                SELECT u.nome
+                FROM usuario u 
+                INNER JOIN mencao_usuario mu USING(id_usuario)
+                GROUP BY u.nome
+                WHERE u.cidade = %s
+                ORDER BY count(mu.id_post) DESC
+                           ''', (cidade))
         res = cursor.fetchall()
         if res:
             return res

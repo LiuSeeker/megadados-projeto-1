@@ -12,6 +12,7 @@ import datetime
 from funcoes_visualizacao import *
 from funcoes_post import adiciona_post, acha_post_info_por_id
 
+
 class TestVisualizacao(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -49,15 +50,17 @@ class TestVisualizacao(unittest.TestCase):
         aparelho = 'iphone6'
         ip = '0.0.0.0'
         instante = '1970-01-01 00:00:01'
+        browser = 'chrome'
 
-        res_esperado = [id_post, 2, 'iphone6', '0.0.0.0', datetime.datetime(1970, 1, 1, 0, 0, 1)]
+        res_esperado = [id_post, 2, 'iphone6', '0.0.0.0',
+                        datetime.datetime(1970, 1, 1, 0, 0, 1), browser]
 
         adiciona_visualizacao(conn, id_post, id_usuario,
-                              aparelho, ip, instante)
+                              aparelho, ip, instante, browser)
 
         try:
             adiciona_visualizacao(
-                conn, id_post, id_usuario, aparelho, ip, instante)
+                conn, id_post, id_usuario, aparelho, ip, instante, browser)
             self.fail(
                 'Nao deveria ter adicionado a mesma preferencia duas vezes.')
         except ValueError as e:
@@ -65,7 +68,6 @@ class TestVisualizacao(unittest.TestCase):
 
         res = lista_visualizacao_por_id_post(conn, id_post)
         self.assertCountEqual(res[0], res_esperado)
-
 
     def test_lista_visualizacao_por_id_post(self):
         conn = self.__class__.connection
@@ -84,21 +86,21 @@ class TestVisualizacao(unittest.TestCase):
         aparelho = 'iphone6'
         ip = '0.0.0.0'
         instante = '1970-01-01 00:00:01'
+        browser = 'chrome'
 
         adiciona_visualizacao(conn, id_post, id_usuario,
-                                aparelho, ip, instante)
-
+                              aparelho, ip, instante, browser)
 
         id_usuario2 = 1
         aparelho2 = 'iphone5'
         ip2 = '0.0.0.1'
         instante2 = '1971-01-01 00:00:01'
 
-        res_esperado = [id_post, 2, 'iphone6', '0.0.0.0', datetime.datetime(1970, 1, 1, 0, 0, 1)]
+        res_esperado = [id_post, 2, 'iphone6', '0.0.0.0',
+                        datetime.datetime(1970, 1, 1, 0, 0, 1), browser]
 
         adiciona_visualizacao(conn, id_post2, id_usuario2,
-                                aparelho2, ip2, instante2)
-
+                              aparelho2, ip2, instante2, browser)
 
         res = lista_visualizacao_por_id_post(conn, id_post)
         self.assertCountEqual(res[0], res_esperado)
@@ -120,9 +122,10 @@ class TestVisualizacao(unittest.TestCase):
         aparelho = 'iphone6'
         ip = '0.0.0.0'
         instante = '1970-01-01 00:00:01'
+        browser = 'chrome'
 
         adiciona_visualizacao(conn, id_post, id_usuario,
-                                aparelho, ip, instante)
+                              aparelho, ip, instante, browser)
 
         id_usuario2 = 1
         aparelho2 = 'iphone5'
@@ -130,13 +133,13 @@ class TestVisualizacao(unittest.TestCase):
         instante2 = '1971-01-01 00:00:01'
 
         adiciona_visualizacao(conn, id_post2, id_usuario2,
-                                aparelho2, ip2, instante2)
+                              aparelho2, ip2, instante2, browser)
 
-        res_esperado = [id_post, 2, 'iphone6', '0.0.0.0', datetime.datetime(1970, 1, 1, 0, 0, 1)]
+        res_esperado = [id_post, 2, 'iphone6', '0.0.0.0',
+                        datetime.datetime(1970, 1, 1, 0, 0, 1), browser]
 
         res = lista_visualizacao_por_id_usuario(conn, 2)
         self.assertCountEqual(res[0], res_esperado)
-
 
     def test_lista_visualizacao_por_aparelho(self):
         conn = self.__class__.connection
@@ -155,9 +158,10 @@ class TestVisualizacao(unittest.TestCase):
         aparelho = 'iphone6'
         ip = '0.0.0.0'
         instante = '1970-01-01 00:00:01'
+        browser = 'chrome'
 
         adiciona_visualizacao(conn, id_post, id_usuario,
-                                aparelho, ip, instante)
+                              aparelho, ip, instante, browser)
 
         id_usuario2 = 1
         aparelho2 = 'iphone5'
@@ -165,9 +169,10 @@ class TestVisualizacao(unittest.TestCase):
         instante2 = '1971-01-01 00:00:01'
 
         adiciona_visualizacao(conn, id_post2, id_usuario2,
-                                aparelho2, ip2, instante2)
+                              aparelho2, ip2, instante2, browser)
 
-        res_esperado = [id_post, 2, 'iphone6', '0.0.0.0', datetime.datetime(1970, 1, 1, 0, 0, 1)]
+        res_esperado = [id_post, 2, 'iphone6', '0.0.0.0',
+                        datetime.datetime(1970, 1, 1, 0, 0, 1), browser]
 
         res = lista_visualizacao_por_aparelho(conn, 'iphone6')
         self.assertCountEqual(res[0], res_esperado)
@@ -189,9 +194,10 @@ class TestVisualizacao(unittest.TestCase):
         aparelho = 'iphone6'
         ip = '0.0.0.0'
         instante = '1970-01-01 00:00:01'
+        browser = 'chrome'
 
         adiciona_visualizacao(conn, id_post, id_usuario,
-                                aparelho, ip, instante)
+                              aparelho, ip, instante, browser)
 
         id_usuario2 = 1
         aparelho2 = 'iphone5'
@@ -199,13 +205,13 @@ class TestVisualizacao(unittest.TestCase):
         instante2 = '1971-01-01 00:00:01'
 
         adiciona_visualizacao(conn, id_post2, id_usuario2,
-                                aparelho2, ip2, instante2)
+                              aparelho2, ip2, instante2, browser)
 
-        res_esperado = [id_post, 2, 'iphone6', '0.0.0.0', datetime.datetime(1970, 1, 1, 0, 0, 1)]
+        res_esperado = [id_post, 2, 'iphone6', '0.0.0.0',
+                        datetime.datetime(1970, 1, 1, 0, 0, 1), browser]
 
         res = lista_visualizacao_por_ip(conn, '0.0.0.0')
         self.assertCountEqual(res[0], res_esperado)
-
 
     def test_remove_visualizacao(self):
         conn = self.__class__.connection
@@ -219,9 +225,10 @@ class TestVisualizacao(unittest.TestCase):
         aparelho = 'iphone6'
         ip = '0.0.0.0'
         instante = '1970-01-01 00:00:01'
+        browser = 'chrome'
 
         adiciona_visualizacao(conn, id_post, id_usuario,
-                              aparelho, ip, instante)
+                              aparelho, ip, instante, browser)
 
         remove_visualizacao(conn, id_post, id_usuario)
 

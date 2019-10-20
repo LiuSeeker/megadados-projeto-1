@@ -71,6 +71,7 @@ def consulta_url_com_hashtags(conn):
                 SELECT especie, url_imagem
                 FROM post
                 INNER JOIN mencao_passaro USING (id_post)
+                WHERE mencao_passaro.ativo = 1
                            ''')
         res = cursor.fetchall()
         if res:

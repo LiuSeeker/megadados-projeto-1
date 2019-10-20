@@ -54,9 +54,9 @@ def consulta_lista_de_usuarios_que_referenciam_determinado_usuario(conn, id_usua
 def consulta_tabela_cruzada_de_quantidade_de_aparelhos_por_tipo_e_por_browser(conn):
     with conn.cursor() as cursor:
         cursor.execute('''
-                SELECT COUNT(aparelho), aparelho
+                SELECT COUNT(aparelho), aparelho, browser
                 FROM visualizacao
-                GROUP BY aparelho
+                GROUP BY aparelho, browser
                            ''')
         res = cursor.fetchall()
         if res:

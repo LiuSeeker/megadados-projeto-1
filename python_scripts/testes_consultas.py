@@ -127,9 +127,6 @@ class TestConjuntas(unittest.TestCase):
             cursor.execute('SELECT LAST_INSERT_ID()')
             id_post = cursor.fetchone()[0]
 
-
-        print("\n{}\n".format(id_post))
-
         for i in range(5):
             adiciona_visualizacao(
                 conn, id_post, id_usuario, 'iphone11', '0000', 'chrome')
@@ -147,7 +144,11 @@ class TestConjuntas(unittest.TestCase):
 
         res = consulta_tabela_cruzada_de_quantidade_de_aparelhos_por_tipo_e_por_browser(
             conn)
-        print(res)
+
+        res_esperado = [(5, 'iphone11', 'chrome'),
+                        (3, 's9', 'chrome'), (2, 'iphone11', 'opera')]
+
+        self.assertCountEqual(res, res_esperado)
 
 
 if __name__ == '__main__':

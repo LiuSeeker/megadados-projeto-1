@@ -21,10 +21,10 @@ def consulta_usuario_mais_popular_de_cada_cidade(conn, cidade):
     with conn.cursor() as cursor:
         cursor.execute('''
                 SELECT u.username
-                FROM usuario u 
-                INNER JOIN mencao_usuario mu USING(id_usuario)
-                GROUP BY u.nome
+                FROM Usuario u 
+                INNER JOIN Mencao_Usuario mu USING(id_usuario)
                 WHERE u.cidade = %s
+                GROUP BY u.nome
                 ORDER BY count(mu.id_post) DESC
                            ''', (cidade))
         res = cursor.fetchall()

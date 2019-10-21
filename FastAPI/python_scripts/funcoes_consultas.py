@@ -21,10 +21,10 @@ def consulta_usuario_mais_popular_de_cada_cidade(conn, cidade):
     with conn.cursor() as cursor:
         cursor.execute('''
                 SELECT u.username
-                FROM usuario u 
-                INNER JOIN mencao_usuario mu USING(id_usuario)
-                GROUP BY u.nome
+                FROM Usuario u 
+                INNER JOIN Mencao_Usuario mu USING(id_usuario)
                 WHERE u.cidade = %s
+                GROUP BY u.username
                 ORDER BY count(mu.id_post) DESC
                            ''', (cidade))
         res = cursor.fetchall()
@@ -71,9 +71,9 @@ def consulta_url_com_hashtags(conn):
     with conn.cursor() as cursor:
         cursor.execute('''
                 SELECT especie, url_imagem
-                FROM post
-                INNER JOIN mencao_passaro USING (id_post)
-                WHERE mencao_passaro.ativo = 1
+                FROM Post
+                INNER JOIN Mencao_Passaro USING (id_post)
+                WHERE Mencao_Passaro.ativo = 1
                            ''')
         res = cursor.fetchall()
         if res:

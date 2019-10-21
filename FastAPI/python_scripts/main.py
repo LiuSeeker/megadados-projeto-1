@@ -28,23 +28,6 @@ conn = pymysql.connect(
 
 app = FastAPI()
 
-class Post(BaseModel):
-        id_post: int
-        id_usuario: int
-        titulo: str
-        texto: str
-        url_imagem: str
-        cidade: str
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str = None):
-    return {"item_id": item_id, "q": q}
-
 
 @app.get("/usuarios/{id_usuario}")
 def read_usuarios(id_usuario: int):
@@ -81,6 +64,11 @@ def read_posts_de_usuario_ordem_cronologica(id_usuario: int):
         res = consulta_posts_de_usuario_em_ordem_reversa(conn, id_usuario)
         return{"posts": res}
 
+@app.get("/usuarios/{cidade}")
+def read_usuario_popular_por_cidade(cidade: str):
+        res = consulta_usuario_mais_popular_de_cada_cidade(conn, cidade)
+        return{"usuario_popular": res}
+
 @app.get("/usuarios/usuarios/{id_usuario}")
 def read_usuarios_que_referenciam_usuario(id_usuario: int):
         res = consulta_lista_de_usuarios_que_referenciam_determinado_usuario(conn, id_usuario)
@@ -90,4 +78,17 @@ def read_usuarios_que_referenciam_usuario(id_usuario: int):
 def read_tabela_cruzada():
         res = consulta_tabela_cruzada_de_quantidade_de_aparelhos_por_tipo_e_por_browser(conn)
         return{"tabela": res}
+
+@app.get("/visualizacao/passaros")
+def read_lista_urls_com_hashtags():
+        res = consulta_url_com_hashtags(conn)
+        return{"urls": res}
+
+@app.put("/posts/{id_post}")
+def update_texto_post(id_post: int, texto: str):
+        update_post_texto_e_mencoes(conn, id_post, texto)
+        return{
+                "id_post": id_post,
+                "texto": texto
+        }
 

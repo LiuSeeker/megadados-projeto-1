@@ -89,7 +89,6 @@ class TestConjuntas(unittest.TestCase):
         adiciona_post_e_mencoes(conn, id_usuario2, titulo2, texto2, url_imagem2)
 
         res = consulta_usuario_mais_popular_de_cada_cidade(conn, "Sao Paulo")
-        print(res, type(res))
 
         res_esperado = ["Folguinha", "guigs10mil"]
 

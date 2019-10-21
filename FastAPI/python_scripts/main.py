@@ -39,6 +39,35 @@ def read_usuarios(id_usuario: int):
             "cidade": res[4]
             }
 
+@app.post("/usuario")
+def create_usuario(nome: str, sobrenome: str, username: str, email: str, cidade: str):
+        with conn.cursor() as cursor:
+                cursor.execute('START TRANSACTION')
+                adiciona_usuario(conn, nome, sobrenome, username, email, cidade)
+                cursor.execute('COMMIT')
+        return {"nome": nome,
+                "sobrenome": sobrenome,
+                "username": username,
+                "email": email,
+                "cidade": cidade
+                }
+
+@app.put("/usuario/{id_usuario}")
+def update_username_usuario(id_usuario: int, username: str):
+        update_usuario_username(conn, id_usuario, username)
+        return{
+                "id_usuario": id_usuario,
+                "username": username
+        }
+
+@app.delete("/usuario/{id_usuario}")
+def delete_user(id_usuario: int):
+        with conn.cursor() as cursor:
+                cursor.execute('START TRANSACTION')
+                update_usuario_ativo(conn, id_usuario, 0)
+                cursor.execute('COMMIT')
+        return {"id_usuario": id_usuario}
+
 @app.post("/posts")
 def create_post(id_usuario: int, titulo: str, texto: str, url_imagem: str):
         with conn.cursor() as cursor:
@@ -64,10 +93,12 @@ def read_posts_de_usuario_ordem_cronologica(id_usuario: int):
         res = consulta_posts_de_usuario_em_ordem_reversa(conn, id_usuario)
         return{"posts": res}
 
-@app.get("/usuarios/{cidade}")
+'''
+@app.get("/usuarios/cidade")
 def read_usuario_popular_por_cidade(cidade: str):
         res = consulta_usuario_mais_popular_de_cada_cidade(conn, cidade)
         return{"usuario_popular": res}
+'''
 
 @app.get("/usuarios/{id_usuario}/usuarios")
 def read_usuarios_que_referenciam_usuario(id_usuario: int):

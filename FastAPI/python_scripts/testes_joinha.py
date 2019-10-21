@@ -58,7 +58,7 @@ class TestJoinha(unittest.TestCase):
 
         
         res = lista_todos_joinha_por_id_post(conn, id_post)
-        res_esperado = [(id_post, id_usuario, 1, 0)]
+        res_esperado = [(id_post, id_usuario, 1)]
         self.assertCountEqual(res, res_esperado)
 
     def test_adiciona_anti_joinha(self):
@@ -82,7 +82,7 @@ class TestJoinha(unittest.TestCase):
 
         
         res = lista_todos_joinha_por_id_post(conn, id_post)
-        res_esperado = [(id_post, id_usuario, 0, 1)]
+        res_esperado = [(id_post, id_usuario, 0)]
         self.assertCountEqual(res, res_esperado)
 
 
@@ -107,7 +107,7 @@ class TestJoinha(unittest.TestCase):
 
         
         res = lista_todos_joinha_por_id_post(conn, id_post)
-        res_esperado = [(id_post, id_usuario, 1, 0)]
+        res_esperado = [(id_post, id_usuario, 1)]
 
         self.assertCountEqual(res, res_esperado)
 
@@ -138,7 +138,7 @@ class TestJoinha(unittest.TestCase):
 
         
         res = lista_pro_joinha_por_id_post(conn, id_post)
-        res_esperado = [(id_post, id_usuario, 1, 0)]
+        res_esperado = [(id_post, id_usuario, 1)]
 
         self.assertCountEqual(res, res_esperado)
 
@@ -169,7 +169,7 @@ class TestJoinha(unittest.TestCase):
 
         
         res = lista_anti_joinha_por_id_post(conn, id_post)
-        res_esperado = [(id_post, id_usuario, 0, 1)]
+        res_esperado = [(id_post, id_usuario, 0)]
 
         self.assertCountEqual(res, res_esperado)
 
@@ -201,7 +201,7 @@ class TestJoinha(unittest.TestCase):
 
         
         res = lista_todos_joinha_por_id_usuario(conn, id_usuario)
-        res_esperado = [(id_post, id_usuario, 1, 0)]
+        res_esperado = [(id_post, id_usuario, 1)]
 
         self.assertCountEqual(res, res_esperado)
 
@@ -232,7 +232,7 @@ class TestJoinha(unittest.TestCase):
 
         
         res = lista_pro_joinha_por_id_usuario(conn, id_usuario)
-        res_esperado = [(id_post, id_usuario, 1, 0)]
+        res_esperado = [(id_post, id_usuario, 1)]
 
         self.assertCountEqual(res, res_esperado)
 
@@ -263,7 +263,7 @@ class TestJoinha(unittest.TestCase):
 
         
         res = lista_anti_joinha_por_id_usuario(conn, id_usuario)
-        res_esperado = [(id_post, id_usuario, 0, 1)]
+        res_esperado = [(id_post, id_usuario, 0)]
 
         self.assertCountEqual(res, res_esperado)
 
@@ -293,22 +293,16 @@ class TestJoinha(unittest.TestCase):
             pass
 
 
-        update_pro_joinha(conn, id_post, 1)
+        update_pro_joinha(conn, id_post)
         
         res = lista_pro_joinha_por_id_post(conn, id_post)
-        res_esperado = [(id_post, id_usuario, 1, 0)]
+        res_esperado = [(id_post, id_usuario, 1)]
 
         self.assertCountEqual(res, res_esperado)
 
         res2 = lista_anti_joinha_por_id_post(conn, id_post)
         
         self.assertIsNone(res2)
-
-        update_pro_joinha(conn, id_post, 0)
-
-        res3 = lista_pro_joinha_por_id_post(conn, id_post)
-        
-        self.assertIsNone(res3)
 
 
     def test_update_anti_joinha(self):
@@ -331,22 +325,16 @@ class TestJoinha(unittest.TestCase):
             pass
 
 
-        update_anti_joinha(conn, id_post, 1)
+        update_anti_joinha(conn, id_post)
         
         res = lista_anti_joinha_por_id_post(conn, id_post)
-        res_esperado = [(id_post, id_usuario, 0, 1)]
+        res_esperado = [(id_post, id_usuario, 0)]
 
         self.assertCountEqual(res, res_esperado)
 
         res2 = lista_pro_joinha_por_id_post(conn, id_post)
         
         self.assertIsNone(res2)
-
-        update_anti_joinha(conn, id_post, 0)
-
-        res3 = lista_anti_joinha_por_id_post(conn, id_post)
-        
-        self.assertIsNone(res3)
 
     def test_remove_joinha(self):
         conn = self.__class__.connection
@@ -369,7 +357,7 @@ class TestJoinha(unittest.TestCase):
 
         
         res = lista_anti_joinha_por_id_usuario(conn, id_usuario)
-        res_esperado = [(id_post, id_usuario, 0, 1)]
+        res_esperado = [(id_post, id_usuario, 0)]
 
         self.assertCountEqual(res, res_esperado)
 
@@ -400,7 +388,7 @@ class TestJoinha(unittest.TestCase):
 
         
         res = lista_anti_joinha_por_id_usuario(conn, id_usuario)
-        res_esperado = [(id_post, id_usuario, 0, 1)]
+        res_esperado = [(id_post, id_usuario, 0)]
 
         self.assertCountEqual(res, res_esperado)
 
@@ -432,7 +420,7 @@ class TestJoinha(unittest.TestCase):
 
         
         res = lista_anti_joinha_por_id_usuario(conn, id_usuario)
-        res_esperado = [(id_post, id_usuario, 0, 1)]
+        res_esperado = [(id_post, id_usuario, 0)]
 
         self.assertCountEqual(res, res_esperado)
 

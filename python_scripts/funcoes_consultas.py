@@ -20,11 +20,11 @@ def consulta_posts_de_usuario_em_ordem_reversa(conn, id_usuario):
 def consulta_usuario_mais_popular_de_cada_cidade(conn, cidade):
     with conn.cursor() as cursor:
         cursor.execute('''
-                SELECT u.nome
+                SELECT u.username
                 FROM usuario u 
                 INNER JOIN mencao_usuario mu USING(id_usuario)
-                GROUP BY u.nome
                 WHERE u.cidade = %s
+                GROUP BY u.username
                 ORDER BY count(mu.id_post) DESC
                            ''', (cidade))
         res = cursor.fetchall()

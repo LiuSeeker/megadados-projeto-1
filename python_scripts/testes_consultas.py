@@ -89,8 +89,11 @@ class TestConjuntas(unittest.TestCase):
         adiciona_post_e_mencoes(conn, id_usuario2, titulo2, texto2, url_imagem2)
 
         res = consulta_usuario_mais_popular_de_cada_cidade(conn, "Sao Paulo")
+        res_lista = [res[0][0], res[1][0]]
+        res_esperado = ["guigs10mil", "Folguinha"]
 
-        print(res)
+        self.assertEqual(res_lista, res_esperado)
+
 
 
     def test_consulta_lista_de_usuarios_que_referenciam_determinado_usuario(self):

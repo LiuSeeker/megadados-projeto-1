@@ -28,8 +28,11 @@ def consulta_usuario_mais_popular_de_cada_cidade(conn, cidade):
                 ORDER BY count(mu.id_post) DESC
                            ''', (cidade))
         res = cursor.fetchall()
+        res_lista = []
         if res:
-            return res
+            for i in res:
+                res_lista.append(i[0])
+            return res_lista
         else:
             return None
 

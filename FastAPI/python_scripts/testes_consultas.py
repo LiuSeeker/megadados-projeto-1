@@ -73,7 +73,7 @@ class TestConjuntas(unittest.TestCase):
 
         id_usuario = 1
         titulo = 'teste'
-        texto = 'ola @guigs10mil #tucano'
+        texto = 'ola @Folguinha #tucano'
         url_imagem = 'sadadsasd'
 
         adiciona_post_e_mencoes(conn, id_usuario, titulo, texto, url_imagem)
@@ -83,14 +83,17 @@ class TestConjuntas(unittest.TestCase):
         
         id_usuario2 = 1
         titulo2 = 'teste'
-        texto2 = 'ola @Folguinha #tucano'
+        texto2 = 'ola @guigs10mil #tucano'
         url_imagem2 = 'sadadsasd'
 
         adiciona_post_e_mencoes(conn, id_usuario2, titulo2, texto2, url_imagem2)
 
         res = consulta_usuario_mais_popular_de_cada_cidade(conn, "Sao Paulo")
+        print(res, type(res))
 
-        print(res)
+        res_esperado = ["Folguinha", "guigs10mil"]
+
+        self.assertEqual(res, res_esperado)
 
 
     def test_consulta_lista_de_usuarios_que_referenciam_determinado_usuario(self):

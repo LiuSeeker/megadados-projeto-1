@@ -69,7 +69,7 @@ def read_usuario_popular_por_cidade(cidade: str):
         res = consulta_usuario_mais_popular_de_cada_cidade(conn, cidade)
         return{"usuario_popular": res}
 
-@app.get("/usuarios/usuarios/{id_usuario}")
+@app.get("/usuarios/{id_usuario}/usuarios")
 def read_usuarios_que_referenciam_usuario(id_usuario: int):
         res = consulta_lista_de_usuarios_que_referenciam_determinado_usuario(conn, id_usuario)
         return{"usuarios_que_referenciam": res}

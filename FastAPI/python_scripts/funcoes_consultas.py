@@ -24,11 +24,7 @@ def consulta_usuario_mais_popular_de_cada_cidade(conn, cidade):
                 FROM Usuario u 
                 INNER JOIN Mencao_Usuario mu USING(id_usuario)
                 WHERE u.cidade = %s
-<<<<<<< HEAD
                 GROUP BY u.username
-=======
-                GROUP BY u.nome
->>>>>>> 08125243e65b67fce55e01de71699a6d078e1636
                 ORDER BY count(mu.id_post) DESC
                            ''', (cidade))
         res = cursor.fetchall()

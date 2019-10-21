@@ -9,11 +9,19 @@ def adiciona_post(conn, id_usuario, titulo, texto, url_imagem):
         except pymysql.err.IntegrityError as e:
             raise ValueError(f'Erro ao inserir post')
 
+def adiciona_repost(conn, id_usuario, titulo, texto, url_imagem, repost):
+    with conn.cursor() as cursor:
+        try:
+            cursor.execute("INSERT INTO Post (id_usuario, titulo, texto, url_imagem, ativo, repost) VALUES (%s, %s, %s, %s, %s, %s)",
+                           (id_usuario, titulo, texto, url_imagem, 1, repost))
+        except pymysql.err.IntegrityError as e:
+            raise ValueError(f'Erro ao inserir post')
+
 
 def acha_post_info_por_id(conn, id_post):
     with conn.cursor() as cursor:
         cursor.execute(
-            "SELECT id_usuario, titulo, texto, url_imagem FROM Post WHERE id_post=%s", (id_post))
+            "SELECT id_usuario, titulo, texto, url_imagem, repost FROM Post WHERE id_post=%s", (id_post))
         res = cursor.fetchall()
         if res:
             return res[0]

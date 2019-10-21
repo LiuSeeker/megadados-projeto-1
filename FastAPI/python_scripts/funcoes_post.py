@@ -60,6 +60,16 @@ def lista_post_id_por_palavra(conn, palavra):
         else:
             return None
 
+def lista_post_id_por_respost(conn):
+    with conn.cursor() as cursor:
+        cursor.execute(
+            "SELECT id_post FROM Post WHERE repost IS NOT NULL")
+        res = cursor.fetchall()
+        if res:
+            return tuple(x[0] for x in res)
+        else:
+            return None
+
 
 def update_post_titulo(conn, id_post, titulo):
     with conn.cursor() as cursor:

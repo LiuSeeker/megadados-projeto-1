@@ -192,6 +192,38 @@ class TestPost(unittest.TestCase):
 
         self.assertIsNone(res2)
 
+    def test_lista_post_id_por_respost(self):
+        conn = self.__class__.connection
+
+        id_usuario = 2
+        titulo = "titulo"
+        texto = "texto"
+        url_imagem = "url_imagem"
+
+        # Adiciona um perigo não existente.
+        adiciona_post(conn, id_usuario, titulo, texto, url_imagem)
+
+        with conn.cursor() as cursor:
+            cursor.execute('SELECT LAST_INSERT_ID()')
+            id_post1 = cursor.fetchone()[0]
+
+        # Checa se o perigo existe.
+        res = acha_post_info_por_id(conn, id_post1)
+
+        id_usuario2 = 1
+
+        adiciona_repost(conn, id_usuario2, res[1], res[2], res[3], id_post1)
+
+        with conn.cursor() as cursor:
+            cursor.execute('SELECT LAST_INSERT_ID()')
+            id_post2 = cursor.fetchone()[0]
+
+
+        res2 = lista_post_id_por_respost(conn)
+        res_esperado = (id_post2)
+
+        self.assertEqual(res2[0], res_esperado)
+
     def test_update_post_titulo(self):
         conn = self.__class__.connection
 
